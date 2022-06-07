@@ -5,6 +5,7 @@ import { extractLocations, getEvents } from '../api';
 import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
+import NumberOfEvents from "../NumberOfEvents";
 
 describe('<App /> component', () => {
     let AppWrapper;
@@ -21,6 +22,12 @@ describe('<App /> component', () => {
 
     expect(AppWrapper.find(CitySearch)).toHaveLength(1);
   });
+
+  test('render NumberOfEvents', () => {
+        
+    expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
+  });
+  
 });
 
 // Seperating integration testing from unit testing
@@ -66,7 +73,12 @@ describe('<App /> integration', () => {
         AppWrapper.unmount();
       });
 
-  });
+     
+
+
+
+
+});
 
 // The first step is always to simply test that the required component (in this case, CitySearch) exists.
 // Only then can you also test whether it provides the required functionality.
