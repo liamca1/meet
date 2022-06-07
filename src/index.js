@@ -5,7 +5,13 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+// React 17
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// React 18
+// const rootElement = document.getElementById("root");
+// const root = createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
     <App />
