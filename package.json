@@ -33,7 +33,7 @@
     "workbox-streams": "^6.5.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test a",
     "test:integration": "jest --watchAll --testPathPattern=src/__tests__",

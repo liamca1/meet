@@ -14,7 +14,6 @@ defineFeature(feature, test => {
         });
 
         when('the user hasn’t selected the event element', () => {
-            // expect(AppWrapper.find('.details-button')).toHaveLength(2)
         });
 
         then('the event element should remain collapsed', () => {

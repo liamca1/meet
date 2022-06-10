@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import * as atatus from 'atatus-spa';
+atatus.config('bf2a3b5f2b7747e48430fd19a69c999c').install();
+
 
 // React 17
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,7 +14,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // React 18
 // const rootElement = document.getElementById("root");
 // const root = createRoot(rootElement);
-
 root.render(
   <React.StrictMode>
     <App />
