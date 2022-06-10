@@ -33,7 +33,7 @@ class CitySearch extends Component {
             query: suggestion,
             suggestion: [],
             showSuggestions: false,
-            inforText:''
+            infoText:''
         });
 
         this.props.updateEvents(suggestion);
@@ -41,7 +41,8 @@ class CitySearch extends Component {
 
     render() {
         return (
-            <div className="CitySearch">
+            <>
+            <div className="CitySearch">Search for your city</div>
                 <InfoAlert text={this.state.infoText} />
                 <input
                     type="text"
@@ -62,7 +63,7 @@ class CitySearch extends Component {
                         <b>See all cities</b>
                     </li>
                 </ul>
-            </div>
+            </>
         );
     }
 }
