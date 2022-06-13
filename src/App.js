@@ -5,6 +5,7 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+import { OfflineAlert } from './Alert';
 
 import { getEvents, extractLocations } from './api';
 
@@ -25,7 +26,17 @@ class App extends Component {
         events: events
       });
     });
-  } 
+    if (!navigator.onLine) {
+      this.setState({
+        offlineText: 'Hello, you are offline. The events you are viewing may not be up-to-date'
+      })
+    } else {
+      this.setState({
+        offlineText: null
+      })
+    }
+  }
+  
 
   componentWillUnmount(){
     this.mounted = false;
@@ -35,7 +46,9 @@ class App extends Component {
     if (eventCount === undefined) {
       eventCount = this.state.numberOfEvents;
     } else(
-      this.setState({ numberOfEvents: eventCount })
+      this.setState({
+        numberOfEvents: eventCount
+      })
     )
     if (location === undefined) {
       location = this.state.locationSelected;
@@ -56,6 +69,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <OfflineAlert text={this.state.offlineText} />
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
