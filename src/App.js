@@ -5,7 +5,7 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import WelcomeScreen from './WelcomeScreen.jsx';
+import WelcomeScreen from './WelcomeScreen';
 
 import { OfflineAlert } from './Alert';
 
@@ -16,7 +16,7 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    showWelcomeScreen, undefined,
+    showWelcomeScreen: undefined,
     locationSelected: 'all',
     numberOfEvents: 32
   };
@@ -33,7 +33,7 @@ class App extends Component {
         getEvents().then((events) => {
           if (this.mounted) {
             this.setState({
-              events,
+              events: [],
               locations: extractLocations(events),
               offlineText: ''
             });
@@ -87,13 +87,19 @@ class App extends Component {
     if (this.state.showWelcomeScreen === undefined) return <div className="App" />
 
     return (
-      <div className="App">
-        <OfflineAlert text={this.state.offlineText} />
+      <>
+      <div className="topBar">
+        <h2 className="appTitle">Meet App</h2>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents updateEvents={this.updateEvents} />
+      </div>
+      <div className='App'>
+        <OfflineAlert text={this.state.offlineText} />
         <EventList events={this.state.events} />
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
       </div>
+      </>
+      
     );
   }
 }
