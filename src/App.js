@@ -5,35 +5,52 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+import WelcomeScreen from './WelcomeScreen.jsx';
+
 import { OfflineAlert } from './Alert';
 
-import { getEvents, extractLocations } from './api';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 
 class App extends Component {
 
   state = {
     events: [],
     locations: [],
+    showWelcomeScreen, undefined,
     locationSelected: 'all',
     numberOfEvents: 32
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      this.setState({
-        locations: extractLocations(events),
-        events: events
-      });
-    });
-    if (!navigator.onLine) {
-      this.setState({
-        offlineText: 'Hello, you are offline. The events you are viewing may not be up-to-date'
-      })
+    if (navigator.onLine && !window.location.href.startsWith('http://localhost')) {
+      const accessToken = localStorage.getItem('access_token');
+      const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+      const searchParams = new URLSearchParams(window.location.search);
+      const code = searchParams.get("code");
+      this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+      if ((code || isTokenValid) && this.mounted) {
+        getEvents().then((events) => {
+          if (this.mounted) {
+            this.setState({
+              events,
+              locations: extractLocations(events),
+              offlineText: ''
+            });
+          }
+        });
+      }
     } else {
-      this.setState({
-        offlineText: null
-      })
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({
+            events,
+            locations: extractLocations(events),
+            offlineText: 'You are offline. The displayed event list may not be up to date.',
+            showWelcomeScreen: false
+          });
+        }
+      });
     }
   }
   
@@ -67,12 +84,15 @@ class App extends Component {
 }
 
   render() {
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" />
+
     return (
       <div className="App">
         <OfflineAlert text={this.state.offlineText} />
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
       </div>
     );
   }
