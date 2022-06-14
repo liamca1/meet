@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import './nprogress.css';
-
+import EventGenre from './EventGenre';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
@@ -106,6 +106,8 @@ render() {
       />       
        <h4>Events in each city</h4>
 
+    <div className='data-ivs-wrapper'>
+      <EventGenre events={events} />
       <ResponsiveContainer height={400} >
         <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
           <CartesianGrid />
@@ -120,7 +122,8 @@ render() {
           <Scatter data={this.getData()} fill="#8884d8" />
         </ScatterChart>
       </ResponsiveContainer>
-      <EventList events={events} />
+    </div>
+    <EventList events={events} />
     </div>
   );
 }
