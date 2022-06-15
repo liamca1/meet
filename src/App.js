@@ -6,10 +6,13 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 // import WelcomeScreen from './WelcomeScreen';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { OfflineAlert } from './Alert';
+import { Container, Navbar, NavDropdown, Nav, Form, Offcanvas, Button, FormControl, } from 'react-bootstrap';
 
 import { getEvents, extractLocations, checkToken } from './api';
+import { mockData } from './mock-data';
 
 class App extends Component {
 
@@ -95,15 +98,16 @@ getData = () => {
 render() {
   const { locations, numberOfEvents, events } = this.state;
   return (
-    <div className="App">
-      <OfflineAlert />
-      <h1>Meet App</h1>
-      <h4>Choose your nearest city</h4>
-      <CitySearch updateEvents={this.updateEvents} locations={locations} />
-      <NumberOfEvents
-        updateEvents={this.updateEvents}
-        numberOfEvents={numberOfEvents}
-      />       
+    <div>
+      <>
+      {[false, 'sm', 'md', 'lg', 'xl', 'xxl' ].map((expand) => (
+        <Navbar key={expand} bg='light' expand={expand} className='mb-3'>
+          <Container fluid>
+            <Navbar.Toggle aroa-controls={`offcanvasNavbar-expand-${expand}`} />
+            </Container>
+            </Navbar>
+      ))}    
+      </> 
        <h4>Events in each city</h4>
 
     <div className='data-ivs-wrapper'>
