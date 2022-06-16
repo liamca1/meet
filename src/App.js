@@ -9,7 +9,7 @@ import NumberOfEvents from './NumberOfEvents';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { OfflineAlert } from './Alert';
-import { Container, Navbar, NavDropdown, Nav, Form, Offcanvas, Button, FormControl, } from 'react-bootstrap';
+import { Container, Col, Row, Navbar, NavDropdown, Nav, InputGroup, Form, Offcanvas, Button, FormControl, } from 'react-bootstrap';
 
 import { getEvents, extractLocations, checkToken } from './api';
 import { mockData } from './mock-data';
@@ -99,35 +99,22 @@ render() {
   const { locations, numberOfEvents, events } = this.state;
   return (
     <div>
-      <>
-      {[false, 'sm', 'md', 'lg', 'xl', 'xxl' ].map((expand) => (
-        <Navbar key={expand} bg='light' expand={expand} className='mb-3'>
-          <Container fluid>
-            <Navbar.Toggle aroa-controls={`offcanvasNavbar-expand-${expand}`} />
-            </Container>
-            </Navbar>
-      ))}    
-      </> 
-       <h4>Events in each city</h4>
-
-    <div className='data-ivs-wrapper'>
-      <EventGenre events={events} />
-      <ResponsiveContainer height={400} >
-        <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-          <CartesianGrid />
-          <XAxis type="category" dataKey="city" name="city" />
-          <YAxis
-            allowDecimals={false}
-            type="number"
-            dataKey="number"
-            name="number of events"
-          />
-          <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-          <Scatter data={this.getData()} fill="#8884d8" />
-        </ScatterChart>
-      </ResponsiveContainer>
-    </div>
-    <EventList events={events} />
+      <Container>
+        <Row className="header">
+          <Col sm={12} md={6} lg={3} className="logo">
+            <h1>Happenings</h1>
+          </Col>
+          <Col sm={12} md={6} lg={3} className="header-search-form">
+            <form className="search-form">
+              <button className="search-form-button"></button>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+              <path d="M413.38 392.4a169.89 169.89 0 0 0 18.19-27.4c43-83 10.73-185.28-72.09-228.39a168.63 168.63 0 0 0-227.82 72.27c-43 83-10.74 185.28 72.09 228.39a168.49 168.49 0 0 0 183.35-18L461.62 494l26.56-26.62zm-194.25 15.16C152.67 373 126.77 290.9 161.28 224.28a135.43 135.43 0 0 1 182.82-58c66.46 34.6 92.36 116.66 57.85 183.28a135.43 135.43 0 0 1-182.82 58z"></path>
+            </svg>
+            <input placeholder='city search'></input>
+            </form>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
