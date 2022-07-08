@@ -5,13 +5,13 @@ import EventGenre from './EventGenre';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-// import WelcomeScreen from './WelcomeScreen';
+import WelcomeScreen from './WelcomeScreen';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { OfflineAlert } from './Alert';
 import { Container, Col, Row, Navbar, NavDropdown, Nav, InputGroup, Form, Offcanvas, Button, FormControl, } from 'react-bootstrap';
 
-import { getEvents, extractLocations, checkToken } from './api';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { mockData } from './mock-data';
 
 class App extends Component {
@@ -98,24 +98,50 @@ getData = () => {
 render() {
   const { locations, numberOfEvents, events } = this.state;
   return (
-    <div>
-      <Container>
-        <Row className="header">
-          <Col sm={12} md={6} lg={3} className="logo">
-            <h1>Happenings</h1>
-          </Col>
-          <Col sm={12} md={6} lg={3} className="header-search-form">
-            <form className="search-form">
-              <button className="search-form-button"></button>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
-              <path d="M413.38 392.4a169.89 169.89 0 0 0 18.19-27.4c43-83 10.73-185.28-72.09-228.39a168.63 168.63 0 0 0-227.82 72.27c-43 83-10.74 185.28 72.09 228.39a168.49 168.49 0 0 0 183.35-18L461.62 494l26.56-26.62zm-194.25 15.16C152.67 373 126.77 290.9 161.28 224.28a135.43 135.43 0 0 1 182.82-58c66.46 34.6 92.36 116.66 57.85 183.28a135.43 135.43 0 0 1-182.82 58z"></path>
-            </svg>
-            <input placeholder='city search'></input>
-            </form>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <section className="layout">
+      <div className="sidebar">
+        <p className="marquee">HAPPENINGS</p>
+      </div>
+      <div className="body">
+        <div className="comp-1">Use this progressive web application (PWA) to search for events happening in your city! It connects to the Google Calendar API to fetch events for a city as specified by the you!</div>
+        <div className="comp-1">
+        </div>
+
+        <div className="comp-1">
+          <CitySearch updateEvents={this.updateEvents} locations={locations} />
+        </div>
+        <div className="comp-1">
+        <NumberOfEvents updateEvents={this.updateEvents} numberOfEvents={numberOfEvents} />
+        </div>
+        <div className="comp-1">
+        <p className="p2">Visualising events by city</p>
+        <ResponsiveContainer height={400} >
+            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+              <CartesianGrid />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis
+                allowDecimals={false}
+                type="number"
+                dataKey="number"
+                name="number of events"/>
+              <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+              <Scatter data={this.getData()} fill="#8884d8" />
+            </ScatterChart>
+        </ResponsiveContainer>
+        <p className="p2">Visualising events by genre</p>
+        <EventGenre events={this.state.events} />
+        </div>
+        <div className="comp-1">
+          <EventList events={events} />
+        </div>
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />
+      </div>
+    </section> 
   );
 }
 }

@@ -1,0 +1,19 @@
+p1 {
+  font-weight: 400;
+}
+
+.EventList {
+  list-style: none;
+}
+
+.event {
+  border: solid 1px black;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.details-button {
+  border: solid 1px black;
+  background-color: white;
+  padding: 8px;
+}

@@ -20,7 +20,7 @@ const EventGenre = ({ events }) => {
     setData(() => getData());
   }, [events]);
 
-  const colors = ["#14404b", "#319b48", "#c4df2d", "#c0557e", "#3f408a"];
+  const colors = ["#FFEB2F", "#BB8B41", "#877F49", "#AC9670", "#4B3D2A"];
   const genreLabels = ({ x, y, cx, cy, name, percent, index }) => {
     return (
       <text
@@ -37,23 +37,13 @@ const EventGenre = ({ events }) => {
   };
 
   return (
-    <div className="pie-container">
-      <h2>Event Genres by total events</h2>
+    
       <ResponsiveContainer height={400}>
-        <PieChart
-          width={400}
-          height={400}
-          margin={{
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 0,
-          }}
-        >
+        <PieChart width={300} height={300}>
           <Pie
             data={data}
-            cx={200}
-            cy={200}
+            cx="50%"
+          cy="50%"
             labelLine={false}
             outerRadius={80}
             fill="#8884d8"
@@ -66,7 +56,6 @@ const EventGenre = ({ events }) => {
           </Pie>
         </PieChart>
       </ResponsiveContainer>
-    </div>
   );
 };
 

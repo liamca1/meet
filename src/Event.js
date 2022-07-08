@@ -12,14 +12,10 @@ class Event extends Component {
     
     return (
       <div className="event">
-        <h1 className="summary">{event.summary}</h1>
         <p className="start-date">
-          {event.start.dateTime} ({event.start.timeZone})
-        </p>
-        <p className="location">
-          @{event.summary} | {event.location}
-        </p>
-        <button
+          {event.start.dateTime} <br></br>
+          {event.location} <br></br>
+          <button
           variant="outline-info"
           className={`details-button ${collapsed ? "show" : "hide"}-details`}
           onClick={this.handleClick}
@@ -39,6 +35,7 @@ class Event extends Component {
             <p className="event-description">{event.description}</p>
           </div>
         )}
+        </p>
       </div>
     );
   }

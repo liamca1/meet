@@ -3,7 +3,7 @@ import { ErrorAlert } from './Alert';
 class NumberOfEvents extends Component {
 
     state = {
-        numberOfEvents : 1
+        numberOfEvents : 2
     }
 
     changeNumberOfEvents = (event) => {
@@ -25,14 +25,15 @@ class NumberOfEvents extends Component {
   render() {
     return (
       <>
-      <div className="NumberOfEvents">How many events would you like to see?</div>
+      <div className="NumberOfEvents">Filter the number of results shown</div>
+      <ErrorAlert text={this.state.errorText} />
+
         <input 
           className="number-of-events"
           type="number"
           onChange={this.changeNumberOfEvents}
           value={this.props.numberOfEvents}>
         </input>
-        <ErrorAlert text={this.state.errorText} />
       </>
     );
   }
