@@ -81,7 +81,7 @@ Given an expanded element is displaying its details
 When a user deselects/clicks back out of the event
 Then the event element should collapse to hide its details
 
-<h2>3 — Specify Number of Events</u>
+<h2>3 — Specify Number of Events</h2>
 As a user
 I should be able to specify the number of events that are displayed
 So that I can keep track of the events I’m interested in.
@@ -133,7 +133,7 @@ Then show a chart with the number of upcoming events in each city.
 
 <h2>Geting Started</h2>
 
-<b>Clone the repository
+<b>Clone the repository</b>
 
 git clone https://github.com/Manja-030/cf_meet-app.git
 
